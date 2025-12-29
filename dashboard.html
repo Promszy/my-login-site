@@ -3,45 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css"> <style>
-        .dashboard-container {
-            text-align: center;
-            color: white;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 2px solid white;
-            border-radius: 20px;
-        }
-        .logout-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #f4b342;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-    </style>
-</head>
+    <title>Welcome Dashboard</title>
+    <link rel="stylesheet" href="style.css"> </head>
 <body>
-    <div class="dashboard-container">
-        <h1>Welcome to your Dashboard!</h1>
-        <p id="user-email">Loading user...</p>
-        <button class="logout-btn" id="logout-btn">Logout</button>
+    <div class="wrapper">
+        <div class="login-box">
+            <div class="login-header">
+                <span>Welcome</span>
+            </div>
+            <div style="color: white; text-align: center; margin-top: 20px;">
+                <p id="user-display">Loading user info...</p>
+                <button id="logout-btn" class="input-submit" style="margin-top: 20px;">Logout</button>
+            </div>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // Use the same config as index.html
+        // IMPORTANT: Use your exact Firebase Config here
         const firebaseConfig = {
             apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT",
+            storageBucket: "YOUR_PROJECT.appspot.com",
             messagingSenderId: "YOUR_ID",
             appId: "YOUR_APP_ID"
         };
@@ -49,23 +35,20 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Check if user is logged in
+        // Security Check: If not logged in, send back to login page
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                document.getElementById('user-email').innerText = "Logged in as: " + user.email;
+                document.getElementById('user-display').innerText = "Hello, " + user.email;
             } else {
-                // No user is signed in, redirect to login page
                 window.location.href = "index.html";
             }
         });
 
-        // Handle Logout
+        // Logout logic
         document.getElementById('logout-btn').addEventListener('click', () => {
-            signOut(auth).then(() => {
-                window.location.href = "index.html";
-            });
+            signOut(auth).then(() => window.location.href = "index.html");
         });
     </script>
 </body>
 </html>
-￼Enter
+
