@@ -3,95 +3,40 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Modern Auth - Mobile Ready</title>
+    <title>Form Slide: Login / Signup</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <div class="wrapper">
         <div class="login-box">
             <div class="login-header">
-                <span id="header-text">Login</span>
+                <span>Login</span>
             </div>
-            <form id="auth-form">
+            <form>
                 <div class="input-box">
-                    <input type="email" id="user" class="input-field" placeholder=" " required>
-                    <label for="user" class="label">Email</label>
-                    <i class="fa-solid fa-envelope"></i>
+                    <input type="text" id="user" class="input-field" placeholder=" " required>
+                    <label for="user" class="label">Username</label>
+                    <i class="fa-solid fa-user"></i>
                 </div>
                 <div class="input-box">
                     <input type="password" id="pass" class="input-field" placeholder=" " required>
                     <label for="pass" class="label">Password</label>
                     <i class="fa-solid fa-lock"></i>
                 </div>
-                <div class="remember-forgot" id="remember-section">
+                <div class="remember-forgot">
                     <label><input type="checkbox">Remember me</label>
                     <a href="#">Forgot password?</a>
                 </div>
                 <div class="input-box">
-                    <input type="submit" class="input-submit" id="submit-btn" value="Login">
+                    <input type="submit" class="input-submit" value="Login">
                 </div>
                 <div class="register">
-                    <span id="footer-text">Don't have an account? <a href="#" onclick="toggleAuth()">Register</a></span>
+                    <span>Don't have an account? <a href="#">Register</a></span>
                 </div>
             </form>
         </div>
     </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            projectId: "YOUR_PROJECT",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "YOUR_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Toggle Logic for Mobile
-        window.toggleAuth = function() {
-            const header = document.getElementById('header-text');
-            const submitBtn = document.getElementById('submit-btn');
-            const footer = document.getElementById('footer-text');
-            const remember = document.getElementById('remember-section');
-
-            if (header.innerText === "Login") {
-                header.innerText = "Register";
-                submitBtn.value = "Sign Up";
-                remember.style.display = "none";
-                footer.innerHTML = 'Already have an account? <a href="#" onclick="toggleAuth()">Login</a>';
-            } else {
-                header.innerText = "Login";
-                submitBtn.value = "Login";
-                remember.style.display = "flex";
-                footer.innerHTML = 'Don\'t have an account? <a href="#" onclick="toggleAuth()">Register</a>';
-            }
-        }
-
-        // Firebase Submit Logic
-        document.getElementById('auth-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('user').value;
-            const password = document.getElementById('pass').value;
-            const mode = document.getElementById('header-text').innerText;
-
-            if (mode === "Login") {
-                signInWithEmailAndPassword(auth, email, password)
-                    .then(() => window.location.href = "dashboard.html")
-                    .catch(err => alert(err.message));
-            } else {
-                createUserWithEmailAndPassword(auth, email, password)
-                    .then(() => window.location.href = "dashboard.html")
-                    .catch(err => alert(err.message));
-            }
-        });
-    </script>
 </body>
 </html>
-￼Enter
+
